@@ -1,0 +1,11 @@
+numpy==1.26.4
+opencv-python==4.9.0.80
+pillow==10.3.0
+tqdm==4.66.2
+matplotlib==3.8.4
+torch==2.2.2
+torchvision==0.17.2
+scikit-learn==1.4.2
+umap-learn==0.5.5
+mtcnn==0.1.1
+joblib==1.4.2
