@@ -1,67 +1,98 @@
-{\rtf1\ansi\ansicpg1252\cocoartf2708
-\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
-{\colortbl;\red255\green255\blue255;}
-{\*\expandedcolortbl;;}
-\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
-\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+# 🧠 Identificação de Coloração Pessoal com IA
 
-\f0\fs24 \cf0 \
-PROT\'d3TIPO DE APLICA\'c7\'c3O PARA IDENTIFICA\'c7\'c3O DE COLORA\'c7\'c3O PESSOAL COM IA\
-\
-Descri\'e7\'e3o:\
-Este projeto classifica rostos femininos em uma das 12 cartelas da colora\'e7\'e3o pessoal\
-(baseado no m\'e9todo sazonal expandido), utilizando t\'e9cnicas de vis\'e3o computacional\
-e intelig\'eancia artificial.\
-\
-ESTRUTURA DO PROJETO:\
-\
-coloracao_pessoal_prototipo/\
-\uc0\u9500 \u9472 \u9472  imagens_originais/        # Imagens completas dos rostos\
-\uc0\u9500 \u9472 \u9472  imagens_segmentadas/      # Apenas as regi\'f5es de pele extra\'eddas\
-\uc0\u9500 \u9472 \u9472  modelo/                   # Modelos treinados (opcional)\
-\uc0\u9500 \u9472 \u9472  notebooks/\
-\uc0\u9474    \u9492 \u9472 \u9472  processamento.ipynb   # Notebook principal com todo o pipeline\
-\uc0\u9500 \u9472 \u9472  faceparsing_bisenet.pth   # Modelo pr\'e9-treinado de segmenta\'e7\'e3o facial\
-\uc0\u9500 \u9472 \u9472  requirements.txt          # Lista de depend\'eancias\
-\uc0\u9492 \u9472 \u9472  README.txt                # Este arquivo\
-\
-REQUISITOS:\
-- Python 3.12.4\
-- Uso de ambiente virtual (venv) recomendado\
-\
-INSTALA\'c7\'c3O:\
-\
-1. Clone o reposit\'f3rio:\
-   git clone https://github.com/seuusuario/coloracao_pessoal_prototipo.git\
-   cd coloracao_pessoal_prototipo\
-\
-2. Crie e ative um ambiente virtual:\
-   python -m venv venv\
-   source venv/bin/activate     (macOS/Linux)\
-   venv\\Scripts\\activate        (Windows)\
-\
-3. Instale os pacotes:\
-   pip install -r requirements.txt\
-\
-PIPELINE:\
-\
-1. Segmenta\'e7\'e3o de pele com MTCNN + BiSeNet\
-2. Extra\'e7\'e3o de 27 features (histogramas LAB + cor dominante)\
-3. Redu\'e7\'e3o dimensional com UMAP\
-4. Clusteriza\'e7\'e3o em 12 grupos com KMeans\
-5. Classifica\'e7\'e3o de novas imagens com base no cluster mais pr\'f3ximo\
-\
-ENTRADA:\
-- imagens_originais/ (rostos completos)\
-\
-SA\'cdDA:\
-- imagens_segmentadas/ (somente regi\'f5es de pele segmentadas)\
-\
-USO:\
-- Insira imagens em imagens_originais/\
-- Execute o Jupyter Notebook `notebooks/processamento.ipynb`\
-- O pipeline ser\'e1 executado automaticamente\
-\
-LICEN\'c7A:\
-Uso educacional e acad\'eamico. N\'e3o recomendado para produ\'e7\'e3o.\
-}
+Este projeto tem como objetivo identificar a cartela de coloração pessoal (sazonal expandido) a partir de imagens faciais. Utiliza técnicas de segmentação, extração de características, redução de dimensionalidade e clusterização não supervisionada para agrupar rostos em 12 categorias cromáticas.
+
+## ✅ Requisitos
+
+- Python 3.12.4
+- Ambiente virtual recomendado
+
+---
+
+## 📦 Instalação
+
+1. Clone o repositório:
+
+```bash
+git clone https://github.com/seu-usuario/coloracao_pessoal_prototipo.git
+cd coloracao_pessoal_prototipo
+```
+
+2. Crie e ative um ambiente virtual:
+
+```bash
+python -m venv venv
+# Ative o ambiente:
+# Windows:
+venv\Scripts\activate
+# macOS/Linux:
+source venv/bin/activate
+```
+
+3. Instale as dependências:
+
+```bash
+pip install -r requirements.txt
+```
+
+---
+
+## 🧪 Pipeline do Projeto
+
+O pipeline completo está implementado no notebook `notebooks/processamento.ipynb` e segue as etapas:
+
+### 1. Segmentação da Pele
+- Segmenta apenas a região da pele do rosto, removendo elementos como olhos, sobrancelhas, boca e cabelo.
+- As imagens segmentadas são salvas na pasta `imagens_segmentadas/`.
+
+### 2. Extração de Características
+- Cálculo do histograma de cor no espaço de cor LAB (`L`, `A`, `B`).
+- Extração da cor dominante usando KMeans.
+- Cada imagem resulta em um vetor com 27 características.
+
+### 3. Redução de Dimensionalidade
+- Utiliza UMAP para projetar os vetores de características em 2D.
+- Essa projeção facilita a visualização e a clusterização das imagens.
+
+### 4. Clusterização
+- O algoritmo KMeans é aplicado sobre os dados reduzidos para formar 12 clusters.
+- Cada cluster representa uma das 12 cartelas de coloração pessoal (método sazonal expandido).
+
+### 5. Classificação de Novas Imagens
+- Novas imagens passam pelas mesmas etapas de segmentação e extração de características.
+- São projetadas com o UMAP já treinado e classificadas com base na distância ao centroide dos clusters do KMeans.
+
+---
+
+## 🖥️ Interface Gráfica com Streamlit
+
+O arquivo `app.py` fornece uma interface gráfica para testar o modelo de forma simples e interativa.
+
+### Como executar a aplicação:
+
+1. Certifique-se de estar no ambiente virtual e com as dependências instaladas (`requirements.txt`).
+2. No terminal, execute o seguinte comando:
+
+```bash
+streamlit run app.py
+```
+
+3. Isso abrirá automaticamente o navegador com a interface do aplicativo.
+
+### Como usar:
+
+- Faça upload de uma imagem com o rosto da pessoa.
+- Selecione uma opção do modo: Modo Pele ou Modo Rosto.
+- A aplicação segmentará automaticamente a pele da imagem.
+- Em seguida, ela exibirá a cartela de coloração pessoal estimada (um dos 12 clusters).
+
+---
+
+## 📌 Observações
+
+- A base de dados já deve estar presente na pasta `imagens_originais/`.
+- O treinamento do modelo é feito diretamente no notebook `processamento.ipynb`.
+- Os resultados finais são organizados em clusters representando as 12 cartelas.
+
+---
+
