@@ -14,7 +14,7 @@ Este projeto tem como objetivo identificar a cartela de coloração pessoal (saz
 1. Clone o repositório:
 
 ```bash
-git clone https://github.com/seu-usuario/coloracao_pessoal_prototipo.git
+git clone https://github.com/marialaurasv/coloracao_pessoal_prototipo.git
 cd coloracao_pessoal_prototipo
 ```
 
@@ -83,8 +83,8 @@ streamlit run app.py
 
 - Faça upload de uma imagem com o rosto da pessoa.
 - Selecione uma opção do modo: Modo Pele ou Modo Rosto.
-- A aplicação segmentará automaticamente a pele da imagem.
-- Em seguida, ela exibirá a cartela de coloração pessoal estimada (um dos 12 clusters).
+- A aplicação segmentará automaticamente a imagem.
+- Em seguida, ela exibirá a cartela de coloração pessoal estimada (um dos 12 clusters) e 5 cores da respectiva cartela.
 
 ---
 
